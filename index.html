@@ -50,40 +50,6 @@
           },
         },
         mounted() {
-          // const API_ENDPOINT =
-          //   "wss://vvy897ucyf.execute-api.ca-central-1.amazonaws.com/production/";
-          // this.connection = new WebSocket(`${API_ENDPOINT}`);
-
-          // this.connection.onmessage = (event) => {
-          //   const data = JSON.parse(event.data);
-          //   console.log(data.message); // new data available
-          //   console.log("howdy do 555");
-          // };
-
-          // this.connection.onerror = (error) => {
-          //   console.log(`WebSocket error: ${error}`);
-          // };
-
-          // this.connection.onopen = (event) => {
-          //   console.log("WebSocket connection established");
-          //   console.log(
-          //     "Connection ID:",
-          //     event.target.url.split("/").slice(-1)[0]
-          //   );
-          //   console.log("howdy do 3");
-          //   const message2 = {
-          //     action: "subscribe",
-          //     headers: {
-          //       connectionId: "<CONNECTION ID>",
-          //     },
-          //   };
-          //   this.connection.send(JSON.stringify(message2));
-          // };
-
-          // this.connection.onclose = (event) => {
-          //   console.log("WebSocket connection closed");
-          // };
-
           let socket;
 
           function connect() {
@@ -95,19 +61,9 @@
               console.log("WebSocket connection established.");
             });
 
-            /* this.socket.addEventListener(
-              "message",
-              function (event) {
-                const data = JSON.parse(event.data);
-                console.log("Received data:", data);
-                this.loadImages(); // Use `this` bound to the Vue instance
-              }.bind(this)
-            ); */
-
             this.socket.addEventListener("message", (event) => {
               const data = JSON.parse(event.data);
               console.log("Received data:", data);
-              loadImages();
             });
 
             this.socket.addEventListener("close", (event) => {
