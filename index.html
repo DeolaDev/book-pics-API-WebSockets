@@ -51,6 +51,7 @@
         },
         mounted() {
           let socket;
+          const that = this;
 
           function connect() {
             this.socket = new WebSocket(
@@ -61,9 +62,10 @@
               console.log("WebSocket connection established.");
             });
 
-            this.socket.addEventListener("message", (event) => {
+            this.socket.addEventListener("message", async function (event) {
               const data = JSON.parse(event.data);
               console.log("Received data:", data);
+              that.loadImages();
             });
 
             this.socket.addEventListener("close", (event) => {
@@ -81,9 +83,7 @@
 
           connect();
 
-          //setInterval(() => {
           this.loadImages();
-          //}, 1000);
         },
       });
     </script>

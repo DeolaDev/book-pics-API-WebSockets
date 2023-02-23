@@ -1,15 +1,39 @@
-# A single page 'Book Pictures' application + API
+# This is an updated version of my single page 'Book Pictures' application
 
-Users can send a text to my TWILIO number with a picture of their favourite book and have it displayed on the webpage.
+In version one and this, users can send a text to my TWILIO number with a picture of their favourite book and have it displayed on the webpage. 
 
-Framework used: Vue.js
+This version builds on that by implementing a solution to automatically reresh the page when a new message is sent to my TWILIO number
 
-APIs used:
+## For this, in addition to implementing and consuming APIs, I also implemented and used DynamoDB, web hooks and web sockets
+# to allow my front-end to automatically reload when a new picture message is received
 
-- Vue API to render the images
-- Twilo Messaging API (to get the data from all incoming messages)
-- Designed a web based API to parse the data and return the expected JSON format
+# IMPLEMENTATION PLAN
+- A Web socket hosted on AWS API Gateway with a $connect and $disconnect route.
+- When a client connects to the web socket, the $connect route triggers the associated Lambda function
+- The connect Lambda function takes the connectionId of the client and stores it in a DynamoDB table
+- When a client disconnects from the web socket, the $disconnect route triggers the associated Lambda function
+- The disconnect Lambda function removes the connectionId of the client from the DynamoDB table
 
-\*\* Hosted with Netlify -> https://book-pics.netlify.app/
+(This allows to keep track of all connected clients)
+
+-  Also created a webhook configured in my HTTP API Gateway
+- This webhook is triggered when a new message is sent to my Twilio phone number
+- The webhook in turn triggers another Lambda function called messageBroadcast
+- This messageBroadcast Lambda function sends a "New data available" message to all connected clients
+- When a client receives the message, it updates the front end and loads the new image automatically
+
+
+# THE EVENT FLOW
+- Twilio receives a message sent to my Twilio phone number.
+- Twilio sends an HTTP request to the webhook configured in my HTTP API Gateway.
+- The HTTP API Gateway forwards the request to my broadcast function.
+- The broadcast function retrieves all active connection IDs from the database.
+- The broadcast function sends a message to each active connection ID using the Amazon API Gateway Management API.
+- The clients receive the message and execute a fetch command to the Twilio API to retrieve the updated data.
+- The Twilio API returns the updated data to the client.
+- The Vue.js app displays the updated data on the frontend.
+
+
+\*\* Hosted with Netlify -> https://book-pics-v2.netlify.app/
 
 \*\*Tutorial by <a href="https://github.com/TwilioDevEd/introduction-to-apis-notes/blob/main/course-notes.md">Craig Dennis</a>
