@@ -43,9 +43,7 @@
             // Fetch data from the book-pics server side API
             // and update the gallery
             try {
-              const response = await fetch(
-                "https://world-of-books-4644.twil.io/api/book-pics"
-              );
+              const response = await fetch("https://my.twil.io/api/url");
               this.gallery = await response.json();
             } catch (error) {
               console.log(error);
