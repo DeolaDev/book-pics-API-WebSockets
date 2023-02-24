@@ -55,7 +55,7 @@
 
           // connect to the websocket
           function connect() {
-            this.socket = new WebSocket("MY_API_GATEWAY_WEBSOCKET_URL");
+            this.socket = new WebSocket("MY_API_GATEWAY_WEBSOCKET_WSS_URL");
 
             this.socket.addEventListener("open", (event) => {
               console.log("WebSocket connection established.");
