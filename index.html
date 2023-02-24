@@ -38,7 +38,7 @@
         methods: {
           async loadImages() {
             // Fetch data from the book-pics server side API
-
+            // and update the gallery
             try {
               const response = await fetch(
                 "https://world-of-books-4644.twil.io/api/book-pics"
@@ -51,8 +51,9 @@
         },
         mounted() {
           let socket;
-          const that = this;
+          const that = this; //binds the 'this' Vue instance to 'that'
 
+          // connect to the websocket
           function connect() {
             this.socket = new WebSocket(
               "wss://vri0i9mkjk.execute-api.ca-central-1.amazonaws.com/production"
@@ -62,6 +63,7 @@
               console.log("WebSocket connection established.");
             });
 
+            // updates the frontend with new pictures when it receives a "New data available" message for the server
             this.socket.addEventListener("message", async function (event) {
               const data = JSON.parse(event.data);
               console.log("Received data:", data);
