@@ -33,3 +33,8 @@ This version builds on that by implementing a solution to automatically refresh 
 \*\* Hosted with Netlify -> https://book-pics-v2.netlify.app/
 
 ### Video Demo shows my phone screen sending picture messages, and my Vue.Js app receiving and displaying a "New data is available" message and then loads and displays the new picture on the page automatically.
+
+
+https://user-images.githubusercontent.com/96260636/221065518-93aea246-ef0f-4a64-a944-7cf73d1a4777.mov
+
+
