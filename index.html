@@ -29,12 +29,15 @@
       const app = new Vue({
         /* $el returns the HTML element to mount the Vue instance. */
         el: "#app",
+
         data() {
+          this.loadImages();
           return {
             callToAction: "Discover Your New Favourite Books",
             gallery: [],
           };
         },
+
         methods: {
           async loadImages() {
             // Fetch data from the book-pics server side API
@@ -52,11 +55,15 @@
         mounted() {
           let socket;
           const that = this; //binds the 'this' Vue instance to 'that'
-          const webSocketURL = 'wss://vri0i9mkjk.execute-api.ca-central-1.amazonaws.com/production'
+          const webSocketURL = "VUE_APP_WEBSOCKET_URL";
 
           // connect to the websocket
           function connect() {
-            this.socket = new WebSocket(webSocketURL);
+            try {
+              this.socket = new WebSocket(webSocketURL);
+            } catch (err) {
+              console.log("error connecting");
+            }
 
             this.socket.addEventListener("open", (event) => {
               console.log("WebSocket connection established.");

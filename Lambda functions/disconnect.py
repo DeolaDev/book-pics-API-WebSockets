@@ -3,7 +3,7 @@
 
 import boto3
 
-api_client = boto3.client('apigatewaymanagementapi', endpoint_url='MY_API_GATEWAY_WEBSOCKET_URL')
+api_client = boto3.client('apigatewaymanagementapi', endpoint_url='API_GATEWAY_WEBSOCKET_URL')
 dynamodb_client = boto3.resource("dynamodb")
 connectionId_table = dynamodb_client.Table("bookPics-ConnectionIDs")
 
