@@ -55,9 +55,7 @@
 
           // connect to the websocket
           function connect() {
-            this.socket = new WebSocket(
-              "wss://vri0i9mkjk.execute-api.ca-central-1.amazonaws.com/production"
-            );
+            this.socket = new WebSocket("MY_API_GATEWAY_WEBSOCKET_URL");
 
             this.socket.addEventListener("open", (event) => {
               console.log("WebSocket connection established.");
